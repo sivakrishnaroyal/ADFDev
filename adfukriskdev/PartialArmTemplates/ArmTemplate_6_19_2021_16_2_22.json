@@ -1,0 +1,58 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adfukriskdev"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/MoviesData')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Movies_Data",
+								"type": "DatasetReference"
+							},
+							"name": "Movies"
+						},
+						{
+							"dataset": {
+								"referenceName": "RatingsData",
+								"type": "DatasetReference"
+							},
+							"name": "RatingsData"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "MovieRatings",
+								"type": "DatasetReference"
+							},
+							"name": "MovieRating"
+						}
+					],
+					"transformations": [
+						{
+							"name": "MovieRatings"
+						}
+					],
+					"script": "source(output(\n\t\tMovieId as integer '000',\n\t\tTitle as string,\n\t\tGenre as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinferDriftedColumnTypes: true,\n\tignoreNoFilesFound: false) ~> Movies\nsource(output(\n\t\tUserID as integer '000',\n\t\tMovieID as integer '000',\n\t\tRating as integer '000',\n\t\tTimestamp as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> RatingsData\nMovies, RatingsData join(Movies@MovieId == RatingsData@MovieID,\n\tjoinType:'inner',\n\tbroadcast: 'left')~> MovieRatings\nMovieRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> MovieRating"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
