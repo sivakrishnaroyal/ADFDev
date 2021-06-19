@@ -809,7 +809,7 @@
 							"name": "MovieRatings"
 						}
 					],
-					"script": "source(output(\n\t\tMovieId as integer '000',\n\t\tTitle as string,\n\t\tGenre as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinferDriftedColumnTypes: true,\n\tignoreNoFilesFound: false) ~> Movies\nsource(output(\n\t\tUserID as integer '000',\n\t\tMovieID as integer '000',\n\t\tRating as integer '000',\n\t\tTimestamp as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> RatingsData\nMovies, RatingsData join(Movies@MovieId == RatingsData@MovieID,\n\tjoinType:'inner',\n\tbroadcast: 'left')~> MovieRatings\nMovieRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> MovieRating"
+					"script": "source(output(\n\t\tMovieId as integer '000',\n\t\tTitle as string,\n\t\tGenre as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinferDriftedColumnTypes: true,\n\tignoreNoFilesFound: true,\n\tpreferredIntegralType: 'integer') ~> Movies\nsource(output(\n\t\tUserID as integer '000',\n\t\tMovieID as integer '000',\n\t\tRating as integer '000',\n\t\tTimestamp as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> RatingsData\nMovies, RatingsData join(Movies@MovieId == RatingsData@MovieID,\n\tjoinType:'inner',\n\tbroadcast: 'left')~> MovieRatings\nMovieRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['MovieRatings.csv'],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> MovieRating"
 				}
 			},
 			"dependsOn": [
