@@ -1,0 +1,9 @@
+{
+	"name": "adfukriskdev",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d8be3c18-77f2-42e8-a20f-25fb3105f4e6",
+		"tenantId": "30c5d73b-0d4a-403b-a55b-fcc92c5e4522"
+	}
+}

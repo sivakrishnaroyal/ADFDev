@@ -1,0 +1,39 @@
+{
+	"name": "MoviesData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Movies_Data",
+						"type": "DatasetReference"
+					},
+					"name": "Movies"
+				},
+				{
+					"dataset": {
+						"referenceName": "RatingsData",
+						"type": "DatasetReference"
+					},
+					"name": "RatingsData"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "MovieRatings",
+						"type": "DatasetReference"
+					},
+					"name": "MovieRating"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MovieRatings"
+				}
+			],
+			"script": "source(output(\n\t\tMovieId as integer '000',\n\t\tTitle as string,\n\t\tGenre as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Movies\nsource(output(\n\t\tUserID as integer '000',\n\t\tMovieID as integer '000',\n\t\tRating as integer '000',\n\t\tTimestamp as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> RatingsData\nMovies, RatingsData join(Movies@MovieId == RatingsData@MovieID,\n\tjoinType:'inner',\n\tbroadcast: 'left')~> MovieRatings\nMovieRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> MovieRating"
+		}
+	}
+}
