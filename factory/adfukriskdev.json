@@ -9,6 +9,10 @@
 			"inputFolder": {
 				"type": "string",
 				"value": "input"
+			},
+			"outputFolder": {
+				"type": "string",
+				"value": "output"
 			}
 		}
 	},
