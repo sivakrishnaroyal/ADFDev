@@ -490,11 +490,11 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"ContainerName": {
-													"value": "@pipeline().parameters.ContainerName",
+													"value": "@pipeline().globalParameters.ContainerName",
 													"type": "Expression"
 												},
 												"InputFolder": {
-													"value": "@pipeline().parameters.InputFolderName",
+													"value": "@pipeline().globalParameters.inputFolder",
 													"type": "Expression"
 												}
 											}
@@ -506,7 +506,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"ContainerName": {
-													"value": "@pipeline().parameters.ContainerName",
+													"value": "@pipeline().globalParameters.ContainerName",
 													"type": "Expression"
 												},
 												"TgtProductFolder": {
@@ -560,11 +560,11 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"ContainerName": {
-													"value": "@pipeline().parameters.ContainerName",
+													"value": "@pipeline().globalParameters.ContainerName",
 													"type": "Expression"
 												},
 												"InputFolder": {
-													"value": "@pipeline().parameters.InputFolderName",
+													"value": "@pipeline().globalParameters.inputFolder",
 													"type": "Expression"
 												}
 											}
@@ -576,7 +576,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"ContainerName": {
-													"value": "@pipeline().parameters.ContainerName",
+													"value": "@pipeline().globalParameters.ContainerName",
 													"type": "Expression"
 												},
 												"TgtSalesFolderName": {
@@ -619,11 +619,11 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"ContainerName": {
-													"value": "@pipeline().parameters.ContainerName",
+													"value": "@pipeline().globalParameters.ContainerName",
 													"type": "Expression"
 												},
 												"InputFolder": {
-													"value": "@pipeline().parameters.InputFolderName",
+													"value": "@pipeline().globalParameters.inputFolder",
 													"type": "Expression"
 												}
 											}
@@ -690,14 +690,6 @@
 					}
 				],
 				"parameters": {
-					"ContainerName": {
-						"type": "string",
-						"defaultValue": "riskeng"
-					},
-					"InputFolderName": {
-						"type": "string",
-						"defaultValue": "input"
-					},
 					"TgtSalesFolder": {
 						"type": "string",
 						"defaultValue": "Sales_mrd"

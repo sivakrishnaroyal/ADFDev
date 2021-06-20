@@ -1,1 +1,14 @@
-{}
+{
+	"ContainerName": {
+		"type": "string",
+		"value": "riskeng"
+	},
+	"inputFolder": {
+		"type": "string",
+		"value": "input"
+	},
+	"outputFolder": {
+		"type": "string",
+		"value": "output"
+	}
+}
