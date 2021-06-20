@@ -5,6 +5,10 @@
 			"ContainerName": {
 				"type": "string",
 				"value": "riskeng"
+			},
+			"inputFolder": {
+				"type": "string",
+				"value": "input"
 			}
 		}
 	},
