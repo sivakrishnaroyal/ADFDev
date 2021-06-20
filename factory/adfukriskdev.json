@@ -1,5 +1,13 @@
 {
 	"name": "adfukriskdev",
+	"properties": {
+		"globalParameters": {
+			"ContainerName": {
+				"type": "string",
+				"value": "riskeng"
+			}
+		}
+	},
 	"location": "uksouth",
 	"identity": {
 		"type": "SystemAssigned",
